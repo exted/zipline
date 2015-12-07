@@ -241,15 +241,15 @@ class BarData(object):
     """
 
     def __init__(self, data_portal=None):
-        self.data_portal = data_portal or {}
+        if data_portal is None:
+            raise ValueError("DataPortal is required!")
+
+        self._data_portal = data_portal
+        self.current_dt = None
 
     def __getitem__(self, name):
-        return self.data_portal.get_equity_price_view(name)
-
-    def __iter__(self):
-        raise TypeError('%r object is not iterable'
-                        % self.__class__.__name__)
+        return self._data_portal.get_equity_price_view(name)
 
     @property
     def fetcher_assets(self):
-        return self.data_portal.get_fetcher_assets()
+        return self._data_portal.get_fetcher_assets()

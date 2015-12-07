@@ -519,3 +519,7 @@ class AssetDBVersionError(ZiplineError):
         "Expected version: {expected_version}. Try rebuilding your asset "
         "database or updating your version of Zipline."
     )
+
+
+class QuantopianDeprecationWarning(DeprecationWarning):
+    pass

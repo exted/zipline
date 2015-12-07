@@ -57,7 +57,7 @@ class AlgorithmSimulator(object):
         # The algorithm's data as of our most recent event.
         # We want an object that will have empty objects as default
         # values on missing keys.
-        self.current_data = BarData(data_portal=self.data_portal)
+        self.current_data = self._create_bar_data()
 
         # We don't have a datetime for the current snapshot until we
         # receive a message.
@@ -77,6 +77,9 @@ class AlgorithmSimulator(object):
             if 'algo_dt' not in record.extra:
                 record.extra['algo_dt'] = self.simulation_dt
         self.processor = Processor(inject_algo_dt)
+
+    def _create_bar_data(self):
+        return BarData(data_portal=self.data_portal)
 
     def transform(self):
         """
@@ -102,6 +105,7 @@ class AlgorithmSimulator(object):
             data_portal.current_dt = dt_to_use
             self.simulation_dt = dt_to_use
             algo.on_dt_changed(dt_to_use)
+            current_data.current_dt = dt_to_use
 
             blotter = algo.blotter
             perf_tracker = algo.perf_tracker
