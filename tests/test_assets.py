@@ -51,8 +51,8 @@ from zipline.assets.asset_writer import (
     check_version_info,
     write_version_info,
     ASSET_DB_VERSION,
-    _version_table_schema,
 )
+from zipline.assets.asset_db_schema import _version_table_schema
 from zipline.errors import (
     EquitiesNotFound,
     FutureContractsNotFound,
